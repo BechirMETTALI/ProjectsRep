@@ -52,3 +52,18 @@ AND arret.arret_horaireprevu BETWEEN '2017-12-05 00:00:00' AND '2017-12-05 23:59
 //SELECT count (DISTINCT personne.Personne_id)
 FROM personne
 INNER JOIN conducteur ON (conducteur.personne_id=personne.personne_id)
+
+SELECT chefdegare.personne_id , count (*) FROM chefdegare group by personne_id
+SELECT MAX(Arret_Horairerealise - Arret_Horaireprevu ) FROM arret
+WHERE DATE(arret.arret_horairerealise)= '2017-11-15' AND DATE(arret.arret_horaireprevu)= '2017-11-15'
+SELECT avg (arret_horairerealise - arret_horairePrevu) FROM arret
+WHERE DATE(arret_horairerealise)='2017-11-15'
+AND DATE(arret_horaireprevu)='2017-11-15'
+AND (arret_horairerealise > arret_horairePrevu
+
+SELECT trajet.trajet_id , MAX(arret.arret_horairerealise) - MIN(arret.arret_horairerealise) , conducteur.personne_id , personne.personne_nom , personne.personne_prenom
+FROM trajet , arret , conducteur , personne
+WHERE trajet.trajet_id = arret.trajet_id
+AND trajet.personne_id=conducteur.personne_id
+AND conducteur.personne_id=personne.personne_id
+AND DATE(arret.arret_horairerealise) BETWEEN '2017-11-01' AND '2017-11-30' GROUP BY trajet.trajet_id , conducteur.personne_id , personne.personne_id
